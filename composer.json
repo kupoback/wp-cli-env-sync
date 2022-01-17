@@ -1,0 +1,27 @@
+{
+    "name": "clique-studios/wp-cli-sync",
+    "description": "A plugin that syncs from one env to the next, copying the database and any uploads folders, and allowing the unpacking of the folders",
+    "type": "wordpress-muplugin",
+    "require": {
+        "ext-json": "*",
+        "php": ">=7.4",
+        "illuminate/console": "10.x-dev",
+        "wp-cli/wp-cli": "^2.1",
+        "wp-cli/db-command": "^2.0",
+        "wp-cli/extension-command": "^2.0",
+        "wp-cli/maintenance-mode-command": "2.x-dev"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "EnvSync\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nick Makris",
+            "email": "nmakris@cliquestudios.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
