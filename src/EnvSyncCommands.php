@@ -63,22 +63,26 @@ class EnvSyncCommands
             return WP_CLI::error('Unable to set the temporary directory.');
         }
 
+        // Begin the process of exporting and compressing
         echo WP_CLI::colorize("Starting the export of the database.\n");
         // Runs the WP-CLI command to export the database
         WP_CLI::runcommand("db export mysql.sql");
         
         // Moves the mysql file to the content dir
         echo WP_CLI::colorize("Moving the database file for compression\n");
+        
         $db_cmd = "mv mysql.sql %s";
         WP_CLI::launch(WP_CLI\Utils\esc_cmd($db_cmd, $this->contentDir));
 
         // Runs the WP-CLI Launch command to go to the content directory and create a zip folder with the uploads directory
         echo WP_CLI::colorize("Compressing the uploads directory and the mysql.sql file.\n");
+        
         $compress_cmd = "cd %s && tar -cPzf migrate-dir.tar.gz --exclude=**/cache mysql.sql -C %s ./uploads ";
         WP_CLI::launch(WP_CLI\Utils\esc_cmd($compress_cmd, $this->contentDir, $this->contentDir, $this->uploadsDir));
 
         // Delete the mysql file
         echo WP_CLI::colorize("Deleting the mysql.sql file.\n");
+
         $delete_sql_cmd = "rm -f %s/mysql.sql";
         WP_CLI::launch(WP_CLI\Utils\esc_cmd($delete_sql_cmd, $this->contentDir));
         
@@ -87,7 +91,7 @@ class EnvSyncCommands
             echo WP_CLI::warning("Unable to delete the mysql.sql file. This is usually due to permissions. Please delete it manually.\n");
         }
 
-        echo WP_CLI::success("Exported and compressed the uploads folder and mysql.sql file. Preparing to migrate this to the new server.\n");
+        echo WP_CLI::success("Exported and compressed the uploads folder and mysql.sql file. Preparing to migrate this to the new server.");
     }
 
     public function import($args, $assoc_args)
