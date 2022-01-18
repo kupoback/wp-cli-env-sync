@@ -13,8 +13,22 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use EnvSync\EnvSyncCommands;
 
+/**
+ * Checks if WP-CLI is installed
+ *
+ * @return trigger_error
+ */
 if (!class_exists('WP_CLI')) {
-    return;
+    return trigger_error("This plugin requires WP_CLI");
+}
+
+/**
+ * Checks if PharData is installed
+ * 
+ * @return trigger_error
+ */
+if (!class_exists('PharData')) {
+    return trigger_error("This plugin requires PharData to be activated.");
 }
 
 $instance = new EnvSyncCommands();
