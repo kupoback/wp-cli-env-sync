@@ -18,4 +18,4 @@ if (!class_exists('WP_CLI')) {
 }
 
 $instance = new EnvSyncCommands();
-WP_CLI::add_command('env-sync', $instance);
+WP_CLI::add_command('envsync', $instance);
